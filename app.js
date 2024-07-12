@@ -72,6 +72,10 @@ io.on("connection", (socket) => {
     socket.on("video-off",({isVideoActive,roomId,firstTime})=>{
         socket.broadcast.to(roomId).emit("remote-video-off",{isRemoteVideoActive:isVideoActive,firstTime})
     })
+
+    socket.on("toggle-mic",({isMicActive,roomId})=>{
+        socket.broadcast.to(roomId).emit("toggle-remote-mic",{isRemoteMicActive:isMicActive})
+    })
     
     socket.on("disconnect",async ()=>{
         let sockets =await io.fetchSockets();
